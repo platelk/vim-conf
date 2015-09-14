@@ -26,6 +26,16 @@ Plugin 'VundleVim/Vundle.vim'
 " Avoid a name conflict with L9
 " Plugin 'user/L9', {'name': 'newL9'}
 
+" ===={ My Plugin }====
+"
+" --{Ctrl-p}--
+" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
+Plugin 'kien/ctrlp.vim'
+
+" --{vim-airline}--
+" Lean & mean status/tabline for vim that's light as air.
+Plugin 'bling/vim-airline'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -40,3 +50,7 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after thi
+" ===={ My Configuration }====
+" [Vim-airline] Automatically displays all buffers when there's only one tab
+" open.
+let g:airline#extensions#tabline#enabled = 1
