@@ -48,11 +48,59 @@ Plugin 'tpope/vim-surround'
 " neocomplete is the abbreviation of "neo-completion with cache"
 Plugin 'Shougo/neocomplete.vim'
 
+" --{YouCompleteMe}--
+" YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine
+" for Vim
+" Plugin 'Valloric/YouCompleteMe'
+
+" --{Csapprox}--
+" Make gvim-only colorschemes work transparently in terminal vim
+Plugin 'godlygeek/csapprox'
+
+" --{vim-go}--
+" Go (golang) support for Vim 
+Plugin 'fatih/vim-go'
+
+" --{tagbar}--
+" Vim plugin that displays tags in a window, ordered by scope 
+Plugin 'majutsushi/tagbar'
+
+" --{Molokai}--
+" Molokai color scheme for Vim
+Plugin 'fatih/molokai'
+
+" --{go-explorer}--
+" Go Explorer is Vim plugin for exploring Go code
+Plugin 'garyburd/go-explorer'
+
+" --{dart-vim-plugin}--
+" Syntax highlighting for Dart in Vim
+Plugin 'dart-lang/dart-vim-plugin'
+
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
+
+if has('vim_starting')
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/dart-vim-plugin
+endif
+ filetype plugin indent on
+
 " To ignore plugin indent changes, instead use:
 filetype plugin on
+syntax on
+set number
+set ruler
+set showcmd
+set backspace=indent,eol,start
+set incsearch
+set hlsearch
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
 
 " ===={ My Configuration }====
 " [Vim-airline] Automatically displays all buffers when there's only one tab
@@ -62,6 +110,17 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 set laststatus=2
+
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable = '\<Left>'
+let g:NERDTreeDirArrowCollapsible = '\<Down>'
+
+
+colorscheme molokai
+let g:molokai_original = 1
+let g:rehash256 = 1
 
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
