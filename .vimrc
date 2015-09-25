@@ -50,7 +50,7 @@ Plugin 'Shougo/neocomplete.vim'
 
 " --{YouCompleteMe}--
 " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine
-" for Vim
+" for Valloricm
 " Plugin 'Valloric/YouCompleteMe'
 
 " --{Csapprox}--
@@ -76,6 +76,10 @@ Plugin 'garyburd/go-explorer'
 " --{dart-vim-plugin}--
 " Syntax highlighting for Dart in Vim
 Plugin 'dart-lang/dart-vim-plugin'
+
+" --{tmux.vim}--
+" Simple tmux statusline generator
+Plugin 'edkolev/tmuxline.vim'
 
 
 " All of your Plugins must be added before the following line
@@ -111,11 +115,11 @@ let g:airline_powerline_fonts = 1
 
 set laststatus=2
 
+" change the mapleader from \ to ,
+let mapleader=","
+
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable = '\<Left>'
-let g:NERDTreeDirArrowCollapsible = '\<Down>'
 
 
 colorscheme molokai
