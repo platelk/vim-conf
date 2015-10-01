@@ -118,7 +118,47 @@ set laststatus=2
 " change the mapleader from \ to ,
 let mapleader=","
 
-map <C-n> :NERDTreeToggle<CR>
+set hidden
+" ignore case when searching
+set ignorecase    
+" ignore case if search pattern is all lowercase,
+" case-sensitive otherwise
+set smartcase
+" insert tabs on the start of a
+"    line according to
+"    shiftwidth, not tabstop
+set smarttab      
+
+" highlight search terms
+set hlsearch      
+
+" show search matches as you type
+set incsearch     
+
+" copy the previous indentation on autoindenting
+set copyindent    
+
+set history=1000         " remember more commands and search history
+set undolevels=1000      " use many muchos levels of undo
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set title                " change the terminal's title
+set visualbell           " don't beep
+set noerrorbells         " don't beep
+
+nnoremap ; :
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+map <C-k>v <C-w>v
+map <C-k>h <C-w>s
+map <C-k>k <C-w>w
+map <C-k>q <C-w>q
+
+map <C-k>o :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 
