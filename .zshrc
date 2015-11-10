@@ -82,3 +82,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vimgo='vim -u ~/.vimrc.go'
+
+export GOPATH="/home/platelk"
+export PATH=$PATH:/usr/lib/dart/bin/

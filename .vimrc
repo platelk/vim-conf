@@ -1,10 +1,8 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -51,7 +49,6 @@ Plugin 'Shougo/neocomplete.vim'
 " --{YouCompleteMe}--
 " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine
 " for Valloricm
-" Plugin 'Valloric/YouCompleteMe'
 
 " --{Csapprox}--
 " Make gvim-only colorschemes work transparently in terminal vim
@@ -106,6 +103,76 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Make sure that extra margin on left is removed
+set foldcolumn=0
+
+" Enable Ctrl-A/Ctrl-X to work on octal and hex numbers, as well as
+" characters
+set nrformats=octal,hex,alpha
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" highlight trailing space
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+"------------------------------------------------------------------------------
+"" Files, backups and undo
+"------------------------------------------------------------------------------
+"
+"" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+"------------------------------------------------------------------------------
+"" Text, tab and indent related
+"------------------------------------------------------------------------------
+"
+"" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Round indent to multiple of 'shiftwidth' for > and < commands
+set shiftround
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set nowrap "Don't Wrap lines (it is stupid)
+
 " ===={ My Configuration }====
 " [Vim-airline] Automatically displays all buffers when there's only one tab
 " open.
@@ -114,6 +181,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 set laststatus=2
+
+" Use 256 colours (Use this setting only if your terminal supports 256
+" colours)
+set t_Co=256
 
 " change the mapleader from \ to ,
 let mapleader=","
@@ -158,25 +229,105 @@ map <C-k>h <C-w>s
 map <C-k>k <C-w>w
 map <C-k>q <C-w>q
 
-map <C-k>o :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" Close the current buffer (w/o closing the current window)
+map <C-b>d :Bclose<cr>
+
+" Close all the buffers
+map <leader>bda :1,1000 bd!<cr>
+
+" Useful mappings for managing tabs
+map <C-t>n :tabnew<cr>
+map <C-t>o :tabonly<cr>
+map <C-t>c :tabclose<cr>
+map <C-t>m :tabmove<cr>
+map <C-t>l :tabnext<cr>
+map <C-t>h :tabprevious<cr>
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
 
-colorscheme molokai
-let g:molokai_original = 1
-let g:rehash256 = 1
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <C-t>e :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Allow to copy/paste between VIM instances
+"copy the current visual selection to ~/.vbuf
+vmap <leader>y :w! ~/.vbuf<cr>
+
+"copy the current line to the buffer file if no visual selection
+nmap <leader>y :.w! ~/.vbuf<cr>
+
+"paste the contents of the buffer file
+nmap <leader>p :r ~/.vbuf<cr>
+
+" map CTRL-L to piece-wise copying of the line above the current one
+imap <C-L> @@@<esc>hhkywjl?@@@<CR>P/@@@<cr>3s
+
+" turn off search highlighting (type <leader>n to de-select everything)
+nmap <silent> <leader>n :silent :nohlsearch<cr>
+
+nmap <F8> :TagbarToggle<CR>
+
+"------------------------------------------------------------------------------
+"" NERDTree
+"------------------------------------------------------------------------------
+"
+"" General properties
+let NERDTreeDirArrows=1
+let NERDTreeMinimalUI=1
+let NERDTreeIgnore=['\.o$', '\.pyc$', '\.php\~$']
+let NERDTreeWinSize = 35
+
+" Make sure that when NT root is changed, Vim's pwd is also updated
+let NERDTreeChDirMode = 2
+let NERDTreeShowLineNumbers = 1
+let NERDTreeAutoCenter = 1
+
+" Open NERDTree on startup, when no file has been specified
+autocmd VimEnter * if !argc() | NERDTree | endif
+
+" Locate file in hierarchy quickly
+map <C-f> :NERDTreeFind<cr>
+
+" Toogle on/off
+nmap <C-o> :NERDTreeToggle<cr>
+
+"------------------------------------------------------------------------------
+"" NeoComplete
+"------------------------------------------------------------------------------
+"
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
 
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
+
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Close popup by <Space>.
+inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+  endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -185,14 +336,66 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-" For cursor moving in insert mode(Not recommended)
-inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-let g:neocomplete#enable_cursor_hold_i = 1
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 "
 " AutoComplPop like behavior.
 let g:neocomplete#enable_auto_select = 1
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+
+"------------------------------------------------------------------------------
+"" Vim-go
+"------------------------------------------------------------------------------
+let g:go_fmt_fail_silently = 1
+"
+" Show a list of interfaces which is implemented by the type under your
+" cursor
+au FileType go nmap <C-g>s <Plug>(go-implements)
+
+" Show type info for the word under your cursor
+au FileType go nmap <C-g>i <Plug>(go-info)
+
+" Open the relevant Godoc for the word under the cursor
+au FileType go nmap <C-g>d <Plug>(go-doc)
+au FileType go nmap <C-g>v <Plug>(go-doc-vertical)
+
+" Open the Godoc in browser
+au FileType go nmap <C-g>b <Plug>(go-doc-browser)
+
+" " Run/build/test/coverage
+au FileType go nmap <C-g>r <Plug>(go-run)
+au FileType go nmap <C-g>b <Plug>(go-build)
+au FileType go nmap <C-g>t <Plug>(go-test)
+au FileType go nmap <C-g>c <Plug>(go-coverage)
+" Call GoFmt
+au FileType go nmap <C-g>f :GoFmt<cr>
+
+" By default syntax-highlighting for Functions, Methods and Structs is
+" disabled.
+" Let's enable them!
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+let g:go_fmt_command = "goimports"
+
+colorscheme molokai
+let g:molokai_original = 1
+let g:rehash256 = 1
+
