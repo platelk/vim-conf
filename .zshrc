@@ -1,11 +1,11 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/platelk/.oh-my-zsh
+#Path to your oh-my-zsh installation.
+  export ZSH=/home/kplatel/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="nebirhos"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -27,7 +27,7 @@ ZSH_THEME="nebirhos"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -49,11 +49,20 @@ ZSH_THEME="nebirhos"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt git-remote-branch git-extras git-flow gitfast github gitignore gradle grunt gulp npm pip python sudo svn tmux ruby perl node go docker bower docker-compose )
+plugins=(git common-aliases debian docker gitfast git-extras git-flow github gradle node npm python rails ruby tmux web-search)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin"
+  export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+  export PATH="$PATH:/home/kplatel/android-studio/bin"
+  export PATH="$PATH:/usr/local/bin"
+  export PATH="$PATH:/usr/lib/dart/bin"
+  export PATH="$PATH:/home/kplatel/genymotion/"
+  export PATH="$PATH:/home/kplatel/flutter/bin"
+
+
+  export GOPATH="/home/kplatel/go"
+  export ANDROID_HOME="/home/kplatel/android-sdk-linux/"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -82,7 +91,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vimgo='vim -u ~/.vimrc.go'
-
-export GOPATH="/home/platelk"
-export PATH=$PATH:/usr/lib/dart/bin/
