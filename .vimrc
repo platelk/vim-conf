@@ -252,7 +252,7 @@ map <C-t>h :tabprevious<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <C-g>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 
@@ -340,6 +340,14 @@ au FileType go nmap <C-g>c <Plug>(go-coverage)
 " Call GoFmt
 au FileType go nmap <C-g>f :GoFmt<cr>
 
+au FileType go nmap <C-g>ds <Plug>(go-def-split)
+au FileType go nmap <C-g>dv <Plug>(go-def-vertical)
+au FileType go nmap <C-g>dt <Plug>(go-def-tab)
+
+au FileType go nmap <C-g>gd <Plug>(go-doc)
+au FileType go nmap <C-g>gv <Plug>(go-doc-vertical)
+au FileType go nmap <C-g>gb <Plug>(go-doc-browser)
+
 " By default syntax-highlighting for Functions, Methods and Structs is
 " disabled.
 " Let's enable them!
@@ -348,8 +356,10 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_auto_type_info = 1
 
 let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
 
 colorscheme molokai
 let g:molokai_original = 1
