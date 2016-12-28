@@ -84,7 +84,9 @@ Plugin 'scrooloose/syntastic'
 "  Pep8 style checker
 Plugin 'nvie/vim-flake8'
 
-
+" --{vim-tickscipt}--
+" Tickscript color and formatting
+Plugin 'nathanielc/vim-tickscript'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -376,3 +378,19 @@ au BufNewFile, BufRead *.py set tabstop=4 set softtabstop=4
     \ set expandtab
     \ set autoindent
     \ set fileformat=unix
+
+"------------------------------------------------------------------------------
+" TICK Script
+"------------------------------------------------------------------------------
+
+au BufRead,BufNewFile *.tick set filetype=tick
+
+" The command to use to format TICKscripts, should not need to be changed
+" let g:tick_fmt_command ="tickfmt"
+
+" Whether to format on save
+let g:tick_fmt_autosave = 1
+
+" Whether to enable experimental features that do a better job of preserving cursor, undo history etc.
+let g:tick_fmt_experimental = 1
+
